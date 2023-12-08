@@ -3,7 +3,7 @@ import json
 import click
 from .calculate_sha1 import calculate_all_sha1_in_folder
 
-@click.group()
+@click.group(context_settings=dict(help_option_names=["-h", "--help"]))
 def cli():
     pass
 
