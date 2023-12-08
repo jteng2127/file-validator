@@ -11,7 +11,7 @@ def cli():
 @cli.command()
 @click.option('--directory', '-d', default=os.getcwd(), help='target directory path')
 @click.option('--output', '-o', default=f'{os.getcwd()}/sha1.json', help='output sha1 json path')
-def cal(directory, output):
+def calculate(directory, output):
     sha1_dict = calculate_all_sha1_in_folder(directory)
 
     with open(output, 'w') as file:
@@ -20,7 +20,7 @@ def cal(directory, output):
 @cli.command()
 @click.argument('sha1_json_path', type=click.Path(exists=True), nargs=2)
 @click.option('--output', '-o', default=f'{os.getcwd()}/validation_result.json', help='validation result json path')
-@click.option('--pattern', '-p', default='*', help='glob pattern for file path')
+@click.option('--pattern', '-p', default='*', help='fnmatch pattern for file path')
 def validate(sha1_json_path, output, pattern):
     with open(sha1_json_path[0], 'r') as file:
         first_sha1_dict = json.load(file)
