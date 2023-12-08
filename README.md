@@ -31,11 +31,11 @@ docker build -t file-validator .
 ### linux
 
 ```bash
-docker run -it --rm -v $(pwd):/data file-validator <subcommand>
+docker run -it --rm -v $(pwd):/data jteng2127/file-validator <subcommand>
 ```
 
 ### windows
 
 ```bash
-docker run -it --rm -v %cd%:/data file-validator <subcommand>
+docker run -it --rm -v %cd%:/data jteng2127/file-validator <subcommand>
 ```
