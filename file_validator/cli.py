@@ -21,18 +21,19 @@ def calculate(directory, output):
 @click.argument('sha1_json_path', type=click.Path(exists=True), nargs=2)
 @click.option('--output', '-o', default=f'{os.getcwd()}/validation_result.json', help='validation result json path')
 @click.option('--pattern', '-p', default=['*'], help='fnmatch pattern for file path', multiple=True)
-def validate(sha1_json_path, output, pattern):
+@click.option('--validate-by-file', '-f', is_flag=True, help='validate by file, if not set, validate by filepath')
+def validate(sha1_json_path, output, pattern, validate_by_file):
     with open(sha1_json_path[0], 'r') as file:
         first_sha1_dict = json.load(file)
 
     with open(sha1_json_path[1], 'r') as file:
         second_sha1_dict = json.load(file)
 
-    different_keys, first_only_keys, second_only_keys = compare_dicts(first_sha1_dict, second_sha1_dict, pattern)
+    different, first_only, second_only = compare_dicts(first_sha1_dict, second_sha1_dict, pattern, validate_by_file)
     json_dict = {
-        'different': different_keys,
-        'only_in_first': first_only_keys,
-        'only_in_second': second_only_keys
+        'different': different,
+        'only_in_first': first_only,
+        'only_in_second': second_only
     }
 
     with open(output, 'w') as file:
